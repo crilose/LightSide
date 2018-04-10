@@ -15,11 +15,11 @@ function hashCheck($filename)
   if($r = $sql->fetch(PDO::FETCH_ASSOC))
   {
     $nomemalware = $r['nome_malware'];
-    echo '<li class="list-group-item" style="background-color: red; color: white;">Positivo, Rilevato malware: ' . $nomemalware . '</li>';
+    echo '<li class="list-group-item" style="background-color: red; color: white;">Positivo, Rilevato malware: ' . $nomemalware . ' <img src="imgs/notok.png" height="40"></li>';
     return true;
   }
   else {
-    echo '<li class="list-group-item" style="background-color: green; color: white;">Negativo, File pulito.</li>';
+    echo '<li class="list-group-item" style="background-color: green; color: white;">Negativo, File pulito.<img src="imgs/ok.png" height="40"></li>';
     return false;
   }
 }
@@ -38,11 +38,11 @@ function shaCheck($filename)
   if($r = $sql->fetch(PDO::FETCH_ASSOC))
   {
     $nomemalware = $r['nome_malware'];
-    echo '<li class="list-group-item" style="background-color: red; color: white;">Positivo, Rilevato malware: ' . $nomemalware . '</li>';
+    echo '<li class="list-group-item" style="background-color: red; color: white;">Positivo, Rilevato malware: ' . $nomemalware . ' <img src="imgs/notok.png" height="40"></li>';
     return true;
   }
   else {
-    echo '<li class="list-group-item" style="background-color: green; color: white;">Negativo, File pulito.</li>';
+    echo '<li class="list-group-item" style="background-color: green; color: white;">Negativo, File pulito.<img src="imgs/ok.png" height="40"></li>';
     return false;
   }
 }
@@ -78,6 +78,12 @@ if($api_reply_array['response_code']==1){
   echo '<li class="list-group-item">'.$api_reply_array['scan_date']. '</li>';
 	//print_r($api_reply_array); per stampare tutto il report
 	exit;
+}
+
+if($api_reply_array['response_code']==0)
+{
+  echo '<div class="card-header"><h6 align="center"> Il file non ha scansioni nel database di VirusTotal </h6></div>';
+  echo '<div class="card-header"><div align="center"><img src="imgs/sadface.png" height="40"></div></div>';
 }
 
 }
