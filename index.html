@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>LightSide Malware Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="scripts/inputbtn.js"></script>
+<script>
+// initialize with defaults
+$("#InputFile").fileinput();
+</script>
+
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8EA4AF;">
+  <img src="imgs/logotest.png" width="50" height="50" class="d-inline-block align-top" alt="logo">
+  <a class="navbar-brand">LightSide</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="index.html">Homepage <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="populatedb.php">Aggiungi Malware</a>
+      <a class="nav-item nav-link" href="about.php">About</a>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+<div class="col">
+<div class="jumbotron jumbotron-fluid" style="background:#7401DF">
+
+       <div class="container">
+	     <h1 class="display-1" align="center" style="color: white;"> Light Side </h1>
+       <h3 class="display-4" align="center" style="color: yellow;"> Analisi di Malware </h3>
+       <p align="center" style="color: white;"> Analisi di firma, statica e dinamica di file potenzialmente nocivi</p>
+       </div>
+</div>
+</div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+    <form action="scan.php" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+      <h4 align="center"> Carica un file da analizzare! </h4>
+  		<div class="input-group input-file" name="InputFile">
+      		<input type="text" class="form-control" placeholder='Scegli un file...' />
+          <span class="input-group-btn">
+            		<button class="btn btn-default btn-choose" type="button">Sfoglia</button>
+                <button type="submit" class="btn btn-primary pull-right">Invia</button>
+        		</span>
+  		</div>
+      <p align="center"><i> Il file sarà eliminato non appena l'analisi sarà terminata </i></p>
+  	</div>
+  	<!-- COMPONENT END -->
+
+    </form>
+  </div>
+
+  <div class="col-md-4">
+  </div>
+</div>
+
+
+<div class="row">
+</div>
+</div>
+
+</body>
+</html>
