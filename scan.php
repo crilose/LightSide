@@ -14,9 +14,15 @@ if(isset($_FILES['InputFile'])){
 
       $expensions= array("jpeg","jpg","png","exe","jar","vbs","dll","txt");
 
+<<<<<<< HEAD
       /*if(in_array($file_ext,$expensions)=== false){
          $errors[]="Estensione non valida. Inserisci un eseguibile o file infettabile.";
       }*/
+=======
+      if(in_array($file_ext,$expensions)=== false){
+         $errors[]="Estensione non valida. Inserisci un eseguibile o file infettabile.";
+      }
+>>>>>>> 3aba21b10830d7f1b208256001373ca96dc6846f
 
       if(empty($errors)==true) {
          move_uploaded_file($file_tmp,"uploads/".$file_name);
