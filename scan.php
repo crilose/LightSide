@@ -36,7 +36,7 @@ if(isset($_FILES['InputFile'])){
   <meta charset="utf-8">
   <title>Report dell'Analisi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -44,9 +44,9 @@ if(isset($_FILES['InputFile'])){
   <script src="scripts/inputbtn.js"></script>
 
 </head>
-<body>
+<body style="overflow-x: hidden;">
 
-
+<div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8EA4AF;">
   <img src="imgs/logotest.png" width="50" height="50" class="d-inline-block align-top" alt="logo">
   <a class="navbar-brand">LightSide</a>
@@ -62,7 +62,7 @@ if(isset($_FILES['InputFile'])){
   </div>
 </nav>
 
-<div class="row">
+<div class="row no-gutters">
 <div class="col">
 <div class="jumbotron jumbotron-fluid" style="background:#7401DF !important">
 
@@ -143,5 +143,6 @@ unlink("uploads/".$file_name); //elimino il file dopo l'analisi
 
 
 ?>
+</div>
 </body>
 </html>

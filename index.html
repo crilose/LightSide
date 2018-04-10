@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>LightSide Malware Analyzer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/style/bootstrap.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -16,9 +17,9 @@ $("#InputFile").fileinput();
 </script>
 
 </head>
-<body>
+<body style="overflow-x: hidden;">
 
-
+<div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8EA4AF;">
   <img src="imgs/logotest.png" width="50" height="50" class="d-inline-block align-top" alt="logo">
   <a class="navbar-brand">LightSide</a>
@@ -34,24 +35,23 @@ $("#InputFile").fileinput();
   </div>
 </nav>
 
-<div class="row">
+<div class="row no-gutters">
 <div class="col">
-<div class="jumbotron jumbotron-fluid" style="background:#7401DF">
-
-       <div class="container">
+<div class="jumbotron jumbotron-fluid" style="background:#7401DF; margin:0;">
+  <div class="container">
 	     <h1 class="display-1" align="center" style="color: white;"> Light Side </h1>
        <h3 class="display-4" align="center" style="color: yellow;"> Analisi di Malware </h3>
        <p align="center" style="color: white;"> Analisi di firma, statica e dinamica di file potenzialmente nocivi</p>
-       </div>
+  </div>
 </div>
 </div>
 </div>
 
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col">
   </div>
-  <div class="col-md-4">
+  <div class="col">
     <form action="scan.php" method="post" enctype="multipart/form-data">
       <div class="form-group">
       <h4 align="center"> Carica un file da analizzare! </h4>
@@ -69,7 +69,7 @@ $("#InputFile").fileinput();
     </form>
   </div>
 
-  <div class="col-md-4">
+  <div class="col">
   </div>
 </div>
 

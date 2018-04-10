@@ -34,3 +34,7 @@
 {
   background-image: url("https://i.warosu.org/data/g/img/0551/43/1466276727827.png");
 }
+body {
+       width: 100%;
+       margin: 0;
+}
