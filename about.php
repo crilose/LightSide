@@ -46,7 +46,7 @@
 
 <div class="row">
   <div class="col-md-4">
-    <div class="card" style="width: 35rem;">
+    <div class="card border-dark mb-3" style="width: 35rem;">
     <h3 class="card-title" align="center">L'Autore</h3>
     <img class="card-img-top" src="imgs/autore.jpeg" alt="author"  >
     <div class="card-body">
@@ -68,7 +68,7 @@
   <div class="col-md-4">
 
     <div class="col-md-4">
-      <div class="card" style="width: 35rem;">
+      <div class="card border-dark mb-3" style="width: 35rem;">
       <h3 class="card-title" align="center">Il progetto LightSide</h3>
       <img class="card-img-top" src="imgs/logotest.png" alt="author">
       <div class="card-body">
@@ -101,7 +101,7 @@
   </div>
 
   <div class="col-md-4">
-    <div class="card" style="width: 35rem;">
+    <div class="card border-dark mb-3" style="width: 35rem;">
     <h3 class="card-title" align="center">Ringraziamenti ed extra info</h3>
     <img class="card-img-top" src="imgs/amici.jpeg" alt="author"  >
     <div class="card-body">

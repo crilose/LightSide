@@ -75,10 +75,10 @@ if(isset($_FILES['InputFile'])){
 </div>
 </div>
 
-<div class="row" id="sendfile">
+<div class="row">
   <div class="col-sm-3">
 
-  <div class="card" style="width: 25rem;">
+  <div class="card border-dark mb-3" style="width: 25rem;">
   <h3 class="card-title" align="center">Identikit</h3>
   <img class="card-img-top" src="imgs/guy.png" alt="guy" height="300" >
   <div class="card-body">
@@ -101,7 +101,7 @@ if(isset($_FILES['InputFile'])){
 
   <div class="col-sm-3">
 
-    <div class="card" style="width: 25rem;">
+    <div class="card border-dark mb-3" style="width: 25rem;">
     <h3 class="card-title" align="center">Firma Locale</h3>
     <img class="card-img-top" src="imgs/localdb.png" alt="guy" height="300" >
     <div class="card-body">
@@ -119,7 +119,7 @@ if(isset($_FILES['InputFile'])){
   </div>
   <div class="col-sm-3">
 
-    <div class="card" style="width: 25rem;">
+    <div class="card border-dark mb-3" style="width: 25rem;">
     <h3 class="card-title" align="center">Firma VirusTotal</h3>
     <img class="card-img-top" src="imgs/vtotal.png" alt="guy" height="300" >
     <div class="card-body">
@@ -128,21 +128,37 @@ if(isset($_FILES['InputFile'])){
     </div>
     <?php
       virusTotalSend($file_name,getHash($file_name)); //facciamo un controllo sul database di virustotal
-
      ?>
 
   </div>
 
 </div>
 
+<div class="col-sm-3">
 
-<div class="row">
-  <?php
-  unlink("uploads/".$file_name); //elimino il file dopo l'analisi
+  <div class="card border-dark mb-3" style="width: 25rem;">
+  <h3 class="card-title" align="center">Firma Locale</h3>
+  <img class="card-img-top" src="imgs/localdb.png" alt="guy" height="300" >
+  <div class="card-body">
 
-  ?>
+  <p class="card-text" align="center">I risultati del controllo di firma su database locale.</p>
+  </div>
+  <div class="card-header"><h6> Controllo MD5 </h6></div>
+  <?php webCallAnalysis(); //facciamo un controllo sull'hash nel nostro Database ?>
+  </div>
+
+
+
 </div>
+<?php
+unlink("/uploads/".$file_name); //elimino il file dopo l'analisi
+ ?>
+
+
+
 </div>
+
+
 
 </div>
 </body>
