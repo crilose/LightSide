@@ -137,14 +137,14 @@ if(isset($_FILES['InputFile'])){
 <div class="col-sm-3">
 
   <div class="card border-dark mb-3" style="width: 25rem;">
-  <h3 class="card-title" align="center">Firma Locale</h3>
-  <img class="card-img-top" src="imgs/localdb.png" alt="guy" height="300" >
+  <h3 class="card-title" align="center">Comunicazioni in Rete</h3>
+  <img class="card-img-top" src="imgs/web.png" alt="web" height="350" >
   <div class="card-body">
 
-  <p class="card-text" align="center">I risultati del controllo di firma su database locale.</p>
+  <p class="card-text" align="center">I risultati del controllo sulle comunicazioni in rete del file.</p>
   </div>
-  <div class="card-header"><h6> Controllo MD5 </h6></div>
-  <?php webCallAnalysis(); //facciamo un controllo sull'hash nel nostro Database ?>
+  <div class="card-header"><h6> Numero di URL </h6></div>
+  <?php webCallAnalysis($file_name); //facciamo un controllo sull'hash nel nostro Database ?>
   </div>
 
 
@@ -160,6 +160,9 @@ unlink('uploads/'.$file_name) //elimino il file dopo l'analisi
 
 
 
+</div>
+<div class="footer-copyright py-3 text-center">
+        2018, LightSide, Realizzato da <a href="https://github.com/crilose">Cristiano Ceccarelli</a>
 </div>
 </body>
 </html>

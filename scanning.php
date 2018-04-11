@@ -94,11 +94,54 @@ function getHash($filename)
   return $hash;
 }
 
-function webCallAnalysis()
+function webCallAnalysis($filename)
 {
 
-  $filecontent = file_get_contents(realpath('index.html'));
-  '<li class="list-group-item">'.$filecontent.'</li>';
+  //Il contenuto del file dentro la variabile
+  $filecontent = file_get_contents("uploads/".$filename);
+  //Cerchiamo tutti i match di url validi
+  preg_match_all('/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}/', $filecontent, $match);
+  $risky = 0; //rischio iniziale zero
+  for($i=0;$i<count($match[0]);$i++)
+  {
+    $api_key = '926d4d760ed7c7fcb5b70f8f35907b580a3f06a40889ad678c7683033628ace6';
+    $report_url = "https://www.virustotal.com/vtapi/v2/url/report?apikey=$api_key&resource=" .$match[0][$i];
+    $api_reply = file_get_contents($report_url); //otteniamo il risultato
+    $api_reply_array = json_decode($api_reply, true); //decodifichiamo la risposta json
+    if($api_reply_array['response_code']==1)
+    {
+      if($api_reply_array['positives']>0)
+      {
+        $risky = 1; //almeno un link è sospetto
+      }
+    }
+  }
+  $numlinks = substr_count($filecontent, 'http://') + substr_count($filecontent, "https://"); //contiamo il numero di link
+  if($numlinks>0) //se è maggiore di zero
+    {
+      if($risky == 1)
+      {
+        echo '<li class="list-group-item" style="background-color: red; color: white">'.$numlinks . '<span class="badge badge-danger">Almeno 1 URL sospetto!</span>'; //barra rossa
+      }
+      else {
+        echo '<li class="list-group-item" style="background-color: orange; color: white">'.$numlinks . '<span class="badge badge-warning">Non ci sono URL sospetti!</span>'; //barra rossa
+      }
+
+      echo '<div class="dropdown" style="position: absolute; right:3px; top:5px;">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Visualizza indirizzi
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+      //Elenco dei link trovati
+      for($i=0;$i<count($match[0]);$i++)
+      {
+        echo '<a class="dropdown-item">'. $match[0][$i].'</a>';
+      }
+      echo'</div> </div></li>';
+    }
+    else {
+      echo '<li class="list-group-item" style="background-color: green; color: white">'.$numlinks; //barra verde
+    }
 
 }
 

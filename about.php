@@ -127,6 +127,8 @@
 <div class="row">
 </div>
 </div>
-
+<div class="footer-copyright py-3 text-center">
+        2018, LightSide, Realizzato da <a href="https://github.com/crilose">Cristiano Ceccarelli</a>
+</div>
 </body>
 </html>
