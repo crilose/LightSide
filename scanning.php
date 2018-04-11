@@ -61,7 +61,6 @@ function virusTotalSend($filepath,$filehash)
   if($api_reply_array['response_code']==-2){
     echo '<div class="card-header"><h6 align="center"> Il file è in coda per essere analizzato.. riprova più tardi. </h6></div>';
     echo '<div class="card-header"><div align="center"><img src="imgs/sadface.png" height="40"></div></div>';
-    exit;
 }
 
 // Se otteniamo risposta positiva
@@ -79,7 +78,6 @@ if($api_reply_array['response_code']==1){
   echo '<div class="card-header"><h6> Timestamp ultima scansione </h6></div>';
   echo '<li class="list-group-item">'.$api_reply_array['scan_date']. '</li>';
 	//print_r($api_reply_array);
-	exit;
 }
 
 if($api_reply_array['response_code']==0)
@@ -87,7 +85,6 @@ if($api_reply_array['response_code']==0)
   echo '<div class="card-header"><h6 align="center"> Il file non ha scansioni nel database di VirusTotal </h6></div>';
   echo '<div class="card-header"><div align="center"><img src="imgs/sadface.png" height="40"></div></div>';
 }
-exit;
 }
 
 //Funzione per ottenere solo l'hash del file
@@ -99,6 +96,7 @@ function getHash($filename)
 
 function webCallAnalysis()
 {
+
   $filecontent = file_get_contents(realpath('index.html'));
   '<li class="list-group-item">'.$filecontent.'</li>';
 

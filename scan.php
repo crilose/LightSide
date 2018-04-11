@@ -151,7 +151,7 @@ if(isset($_FILES['InputFile'])){
 
 </div>
 <?php
-unlink("/uploads/".$file_name); //elimino il file dopo l'analisi
+unlink('uploads/'.$file_name) //elimino il file dopo l'analisi
  ?>
 
 
