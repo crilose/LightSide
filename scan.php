@@ -47,15 +47,15 @@ if(isset($_FILES['InputFile'])){
 <body style="overflow-x: hidden;">
 
 <div class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8EA4AF;">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2C2929;">
   <img src="imgs/logotest.png" width="50" height="50" class="d-inline-block align-top" alt="logo">
-  <a class="navbar-brand">LightSide</a>
+  <a class="navbar-brand" style="color: white">LightSide</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="index.html">Homepage <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="index.html">Homepage <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="populatedb.php">Aggiungi Malware</a>
       <a class="nav-item nav-link" href="about.php">About</a>
     </div>
@@ -78,7 +78,7 @@ if(isset($_FILES['InputFile'])){
 <div class="row" id="sendfile">
   <div class="col-sm-3">
 
-  <div class="card" style="width: 25rem;border:5px solid black;  border-radius: 25px;">
+  <div class="card" style="width: 25rem;">
   <h3 class="card-title" align="center">Identikit</h3>
   <img class="card-img-top" src="imgs/guy.png" alt="guy" height="300" >
   <div class="card-body">
@@ -101,7 +101,7 @@ if(isset($_FILES['InputFile'])){
 
   <div class="col-sm-3">
 
-    <div class="card" style="width: 25rem;border:5px solid black;  border-radius: 25px;">
+    <div class="card" style="width: 25rem;">
     <h3 class="card-title" align="center">Firma Locale</h3>
     <img class="card-img-top" src="imgs/localdb.png" alt="guy" height="300" >
     <div class="card-body">
@@ -119,7 +119,7 @@ if(isset($_FILES['InputFile'])){
   </div>
   <div class="col-sm-3">
 
-    <div class="card" style="width: 25rem;border:5px solid black;  border-radius: 25px;">
+    <div class="card" style="width: 25rem;">
     <h3 class="card-title" align="center">Firma VirusTotal</h3>
     <img class="card-img-top" src="imgs/vtotal.png" alt="guy" height="300" >
     <div class="card-body">
@@ -128,6 +128,7 @@ if(isset($_FILES['InputFile'])){
     </div>
     <?php
       virusTotalSend($file_name,getHash($file_name)); //facciamo un controllo sul database di virustotal
+
      ?>
 
   </div>
@@ -136,13 +137,13 @@ if(isset($_FILES['InputFile'])){
 
 
 <div class="row">
+  <?php
+  unlink("uploads/".$file_name); //elimino il file dopo l'analisi
+
+  ?>
 </div>
 </div>
-<?php
-unlink("uploads/".$file_name); //elimino il file dopo l'analisi
 
-
-?>
 </div>
 </body>
 </html>

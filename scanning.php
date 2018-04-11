@@ -59,7 +59,8 @@ function virusTotalSend($filepath,$filehash)
 
 //Se il codice è -2, cioè richiesta in coda, visualizziamo un messaggio
   if($api_reply_array['response_code']==-2){
-	echo "<p> Il file è in coda per l'analisi, riprova tra poco </p>";
+    echo '<div class="card-header"><h6 align="center"> Il file è in coda per essere analizzato.. riprova più tardi. </h6></div>';
+    echo '<div class="card-header"><div align="center"><img src="imgs/sadface.png" height="40"></div></div>';
 }
 
 // Se otteniamo risposta positiva
@@ -76,7 +77,7 @@ if($api_reply_array['response_code']==1){
   echo '<li class="list-group-item">'.$api_reply_array['total']. '</li>';
   echo '<div class="card-header"><h6> Timestamp ultima scansione </h6></div>';
   echo '<li class="list-group-item">'.$api_reply_array['scan_date']. '</li>';
-	//print_r($api_reply_array); per stampare tutto il report
+	//print_r($api_reply_array);
 	exit;
 }
 
