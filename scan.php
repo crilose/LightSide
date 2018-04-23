@@ -148,16 +148,17 @@ if(isset($_FILES['InputFile'])){
   <div class="card-header"><h6> IP Rilevati </h6></div>
   <?php ipAnalysis($file_name); //facciamo un controllo sull'hash nel nostro Database ?>
   </div>
-
-
-
-
-
-
-
+</div>
 
 </div>
+
+<div class="row">
+
+  <?php finalSafety(); ?>
 </div>
+
+
+
 <?php
 unlink('uploads/'.$file_name) //elimino il file dopo l'analisi
  ?>

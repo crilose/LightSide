@@ -1,8 +1,15 @@
 <?php
 
+$total = 100;
+$safe = 0;
+$unsafe = 0;
+$msg = "Il file non è sicuro! Scappa!";
+
+
 //Funzione di controllo dell'hash
 function hashCheck($filename)
 {
+  global $safe, $unsafe;
   $col = 'mysql:host=localhost;dbname=malwarescan';
   $user = "root";
   $pass = "";
@@ -16,16 +23,19 @@ function hashCheck($filename)
   {
     $nomemalware = $r['nome_malware'];
     echo '<li class="list-group-item" style="background-color: red; color: white;">Positivo, Rilevato malware: ' . $nomemalware . ' <img src="imgs/notok.png" height="40"></li>';
+    $unsafe = $unsafe + 5;
     return true;
   }
   else {
     echo '<li class="list-group-item" style="background-color: green; color: white;">Negativo, File pulito.<img src="imgs/ok.png" height="40"></li>';
+    $safe = $safe + 5;
     return false;
   }
 }
 //Funzione di controllo dello sha256
 function shaCheck($filename)
 {
+  global $safe, $unsafe;
   $col = 'mysql:host=localhost;dbname=malwarescan';
   $user = "root";
   $pass = "";
@@ -39,16 +49,19 @@ function shaCheck($filename)
   {
     $nomemalware = $r['nome_malware'];
     echo '<li class="list-group-item" style="background-color: red; color: white;">Positivo, Rilevato malware: ' . $nomemalware . ' <img src="imgs/notok.png" height="40"></li>';
+    $unsafe = $unsafe + 5;
     return true;
   }
   else {
     echo '<li class="list-group-item" style="background-color: green; color: white;">Negativo, File pulito.<img src="imgs/ok.png" height="40"></li>';
+    $safe = $safe + 5;
     return false;
   }
 }
 
 function virusTotalSend($filepath,$filehash)
 {
+  global $safe, $unsafe;
   $virustotal_api_key = '926d4d760ed7c7fcb5b70f8f35907b580a3f06a40889ad678c7683033628ace6'; //SENSIBILE: qui inseriamo la nostra api-key
   $file_name_with_full_path = realpath('/uploads/'.$filepath); //Formiamo il percorso del file
   $cfile = curl_file_create($file_name_with_full_path); //Creiamo un file da inviare mediante curl
@@ -69,9 +82,11 @@ if($api_reply_array['response_code']==1){
   if($api_reply_array['positives']>0)
   {
     echo '<li class="list-group-item" style="background-color: red; color: white">'.$api_reply_array['positives']. '</li>';
+    $unsafe = $unsafe + 30;
   }
   else {
     echo '<li class="list-group-item" style="background-color: green; color: white">'.$api_reply_array['positives']. '</li>';
+    $safe = $safe + 30;
   }
   echo '<div class="card-header"><h6> Numero antivirus </h6></div>';
   echo '<li class="list-group-item">'.$api_reply_array['total']. '</li>';
@@ -96,7 +111,7 @@ function getHash($filename)
 
 function webCallAnalysis($filename)
 {
-
+global $safe, $unsafe;
   //Il contenuto del file dentro la variabile
   $filecontent = file_get_contents("uploads/".$filename);
   //Cerchiamo tutti i match di url validi
@@ -122,12 +137,15 @@ function webCallAnalysis($filename)
 
   if($numlinks>0) //se è maggiore di zero
     {
+      $unsafe = $unsafe + 5;
       if($riskyurl == 1)
       {
         echo '<li class="list-group-item" style="background-color: red; color: white">'.$numlinks . '<span class="badge badge-danger">Almeno 1 URL sospetto!</span>'; //barra rossa
+        $unsafe = $unsafe + 20;
       }
       else {
         echo '<li class="list-group-item" style="background-color: orange; color: white">'.$numlinks . '<span class="badge badge-warning">Non ci sono URL sospetti!</span>'; //barra rossa
+        $safe = $safe + 10;
       }
 
       echo '<div class="dropdown" style="position: absolute; right:3px; top:5px;">
@@ -144,12 +162,15 @@ function webCallAnalysis($filename)
     }
     else {
       echo '<li class="list-group-item" style="background-color: green; color: white">'.$numlinks . '</li>'; //barra verde
+      $safe = $safe + 10;
+
     }
 
 }
 
 function ipAnalysis($filename)
 {
+  global $safe, $unsafe;
   //Il contenuto del file dentro la variabile
   $filecontent = file_get_contents("uploads/".$filename);
     //Cerchiamo tutti i match di ip validi
@@ -175,12 +196,15 @@ function ipAnalysis($filename)
 
   if($numips>0) //se è maggiore di zero
     {
+      $unsafe = $unsafe + 5;
       if($riskyip == 1)
       {
         echo '<li class="list-group-item" style="background-color: red; color: white">'.$numips . '<span class="badge badge-danger">Almeno 1 IP sospetto!</span>'; //barra rossa
+        $unsafe = $unsafe + 20;
       }
       else {
         echo '<li class="list-group-item" style="background-color: orange; color: white">'.$numips . '<span class="badge badge-warning">Non ci sono IP sospetti!</span>'; //barra rossa
+        $safe = $safe + 10;
       }
 
       echo '<div class="dropdown" style="position: absolute; right:3px; top:5px;">
@@ -197,12 +221,64 @@ function ipAnalysis($filename)
     }
     else {
       echo '<li class="list-group-item" style="background-color: green; color: white">'.$numips . '</li>'; //barra verde
+      $safe = $safe + 10;
     }
 }
 
 
+function finalSafety()
+{
+  global $safe, $unsafe,$msg;
+  echo '<div class="col-sm-3">';
+  determineMsg();
+  if($safe > $unsafe)
+  {
+    echo '<div class="card border-dark mb-3" style="width: 25rem; background-color: #7401DF;">
+    <h3 class="card-title" align="center" style="color:white">Resoconto delle analisi</h3>
+    <img class="card-img-top" src="imgs/safe.png" alt="web" height="350" >
+    <div class="card-body">';
+  }
+  else {
+    echo '<div class="card border-dark mb-3" style="width: 25rem; background-color: #7401DF;">
+    <h3 class="card-title" align="center" style="color:white">Resoconto delle analisi</h3>
+    <img class="card-img-top" src="imgs/unsafe.png" alt="web" height="350" >
+    <div class="card-body">';
+  }
+  echo '<p class="card-text" align="center" style="color:white">Il report finale sul tuo file.</p>
+  </div>
+  <div class="card-header"><h6 style="color:white"> Punteggio sicurezza </h6></div>
+  <li class="list-group-item" style="background-color: green; color: white">'.$safe . '</li>
+  <div class="card-header"><h6 style="color:white"> Punteggio pericolo </h6></div>
+  <li class="list-group-item" style="background-color: red; color: white">'.$unsafe . '</li>
+  <div class="card-header"><h6 style="color:white"> Il verdetto </h6></div>
+  <li class="list-group-item" style="background-color: black; color: white">'.$msg . '</li>
+  </div>
+</div>';
 
 
+}
+
+
+function determineMsg()
+{
+  global $safe, $unsafe,$msg;
+  switch($num = $safe - $unsafe)
+  {
+    case $num==0:
+    $msg = "Il file è incerto!";
+    break;
+
+    case ($num<=10):
+      $msg = "Il file è probabilmente sicuro, ma tienilo d'occhio!";
+      break;
+
+    case ($num<=20&&$num>10):
+      $msg = "Il file è quasi sicuramente innocuo!";
+      break;
+
+  }
+
+}
 
 
 
