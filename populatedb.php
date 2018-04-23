@@ -2,6 +2,7 @@
 error_reporting(0);
 
 require_once 'connect.php';
+require_once 'utils.php';
 $hash;
 $nome;
 $sha;
@@ -68,14 +69,14 @@ $sha;
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Hash MD5</span>
           </div>
-          <input type="text" name="hash" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+          <input type="text" name="hash" class="form-control" aria-label="Default" pattern=".{32}" aria-describedby="inputGroup-sizing-default" required>
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Hash SHA-256</span>
           </div>
-          <input type="text" name="sha" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required> <span class="input-group-btn">
+          <input type="text" name="sha" class="form-control" aria-label="Default" pattern=".{64}" aria-describedby="inputGroup-sizing-default" required> <span class="input-group-btn">
                 <button type="submit" class="btn btn-primary pull-right">Invia</button>
             </span>
         </div>
@@ -103,8 +104,12 @@ $hashtoinsert = $_POST['hash'];
 $shatoinsert = $_POST['sha'];
 $nome = $_POST['nome'];
 
-$sql = $database->prepare("INSERT INTO hashes(nome_malware, hash_malware, sha256, data_inserito) VALUES (?,?,?,CURRENT_TIMESTAMP)");
-$sql->execute(array($nome, $hashtoinsert, $shatoinsert));
+if(validHash($hashtoinsert) && validSha($shatoinsert))
+{
+  $sql = $database->prepare("INSERT INTO hashes(nome_malware, hash_malware, sha256, data_inserito) VALUES (?,?,?,CURRENT_TIMESTAMP)");
+  $sql->execute(array($nome, $hashtoinsert, $shatoinsert));
+}
+
 
 
 

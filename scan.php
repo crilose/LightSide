@@ -143,21 +143,24 @@ if(isset($_FILES['InputFile'])){
 
   <p class="card-text" align="center">I risultati del controllo sulle comunicazioni in rete del file.</p>
   </div>
-  <div class="card-header"><h6> Numero di URL </h6></div>
+  <div class="card-header"><h6> URL Rilevati </h6></div>
   <?php webCallAnalysis($file_name); //facciamo un controllo sull'hash nel nostro Database ?>
+  <div class="card-header"><h6> IP Rilevati </h6></div>
+  <?php ipAnalysis($file_name); //facciamo un controllo sull'hash nel nostro Database ?>
   </div>
 
 
 
+
+
+
+
+
+</div>
 </div>
 <?php
 unlink('uploads/'.$file_name) //elimino il file dopo l'analisi
  ?>
-
-
-
-</div>
-
 
 
 </div>

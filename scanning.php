@@ -100,26 +100,29 @@ function webCallAnalysis($filename)
   //Il contenuto del file dentro la variabile
   $filecontent = file_get_contents("uploads/".$filename);
   //Cerchiamo tutti i match di url validi
-  preg_match_all('/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}/', $filecontent, $match);
-  $risky = 0; //rischio iniziale zero
-  for($i=0;$i<count($match[0]);$i++)
+  preg_match_all('/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}/', $filecontent, $urls);
+  $riskyurl = 0; //rischio iniziale per url zero
+  //Controlliamo gli url
+  for($i=0;$i<count($urls[0]);$i++)
   {
     $api_key = '926d4d760ed7c7fcb5b70f8f35907b580a3f06a40889ad678c7683033628ace6';
-    $report_url = "https://www.virustotal.com/vtapi/v2/url/report?apikey=$api_key&resource=" .$match[0][$i];
+    $report_url = "https://www.virustotal.com/vtapi/v2/url/report?apikey=$api_key&resource=" .$urls[0][$i];
     $api_reply = file_get_contents($report_url); //otteniamo il risultato
     $api_reply_array = json_decode($api_reply, true); //decodifichiamo la risposta json
     if($api_reply_array['response_code']==1)
     {
       if($api_reply_array['positives']>0)
       {
-        $risky = 1; //almeno un link è sospetto
+        $riskyurl = 1; //almeno un link è sospetto
       }
     }
   }
+
   $numlinks = substr_count($filecontent, 'http://') + substr_count($filecontent, "https://"); //contiamo il numero di link
+
   if($numlinks>0) //se è maggiore di zero
     {
-      if($risky == 1)
+      if($riskyurl == 1)
       {
         echo '<li class="list-group-item" style="background-color: red; color: white">'.$numlinks . '<span class="badge badge-danger">Almeno 1 URL sospetto!</span>'; //barra rossa
       }
@@ -129,24 +132,73 @@ function webCallAnalysis($filename)
 
       echo '<div class="dropdown" style="position: absolute; right:3px; top:5px;">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Visualizza indirizzi
+        Visualizza URL
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
       //Elenco dei link trovati
-      for($i=0;$i<count($match[0]);$i++)
+      for($i=0;$i<count($urls[0]);$i++)
       {
-        echo '<a class="dropdown-item">'. $match[0][$i].'</a>';
+        echo '<a class="dropdown-item">'. $urls[0][$i].'</a>';
       }
       echo'</div> </div></li>';
     }
     else {
-      echo '<li class="list-group-item" style="background-color: green; color: white">'.$numlinks; //barra verde
+      echo '<li class="list-group-item" style="background-color: green; color: white">'.$numlinks . '</li>'; //barra verde
     }
 
 }
 
+function ipAnalysis($filename)
+{
+  //Il contenuto del file dentro la variabile
+  $filecontent = file_get_contents("uploads/".$filename);
+    //Cerchiamo tutti i match di ip validi
+  preg_match_all('/([0-9]{1,3}\.){3}[0-9]{1,3}/', $filecontent, $ips);
+  $riskyip = 0; //rischio iniziale per url zero
 
+  //controlliamo gli ip
+  for($i=0;$i<count($ips[0]);$i++)
+  {
+    $api_key = '926d4d760ed7c7fcb5b70f8f35907b580a3f06a40889ad678c7683033628ace6';
+    $report_url = "https://www.virustotal.com/vtapi/v2/url/report?apikey=$api_key&resource=" .$ips[0][$i];
+    $api_reply = file_get_contents($report_url); //otteniamo il risultato
+    $api_reply_array = json_decode($api_reply, true); //decodifichiamo la risposta json
+    if($api_reply_array['response_code']==1)
+    {
+      if($api_reply_array['positives']>0)
+      {
+        $riskyip = 1; //almeno un link è sospetto
+      }
+    }
+  }
+  $numips = $i; //contiamo gli ip
 
+  if($numips>0) //se è maggiore di zero
+    {
+      if($riskyip == 1)
+      {
+        echo '<li class="list-group-item" style="background-color: red; color: white">'.$numips . '<span class="badge badge-danger">Almeno 1 IP sospetto!</span>'; //barra rossa
+      }
+      else {
+        echo '<li class="list-group-item" style="background-color: orange; color: white">'.$numips . '<span class="badge badge-warning">Non ci sono IP sospetti!</span>'; //barra rossa
+      }
+
+      echo '<div class="dropdown" style="position: absolute; right:3px; top:5px;">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Visualizza indirizzi IP
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+      //Elenco dei link trovati
+      for($i=0;$i<count($ips[0]);$i++)
+      {
+        echo '<a class="dropdown-item">'. $ips[0][$i].'</a>';
+      }
+      echo'</div> </div></li>';
+    }
+    else {
+      echo '<li class="list-group-item" style="background-color: green; color: white">'.$numips . '</li>'; //barra verde
+    }
+}
 
 
 
