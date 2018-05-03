@@ -273,8 +273,20 @@ function determineMsg()
       break;
 
     case ($num<=20&&$num>10):
-      $msg = "Il file è quasi sicuramente innocuo!";
+      $msg = "Il file è molto probabilmente sicuro!";
       break;
+
+    case ($num>20&&$num<30):
+    $msg = "Il file è ragionevolmente sicuro!";
+    break;
+
+    case($num>=30&& $num<50):
+    $msg = "Il file è sicuramente innocuo!";
+    break;
+
+    case($num>=50):
+    $msg = "Il file è innocuo, nessun problema!";
+    break;
 
   }
 
