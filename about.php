@@ -67,8 +67,6 @@
 
 
   <div class="col-md">
-
-    <div class="col-md-4">
       <div class="card border-dark mb-3" style="width: 35rem;">
       <h3 class="card-title" align="center">Il progetto LightSide</h3>
       <img class="card-img-top" src="imgs/logotest.png" alt="author">
