@@ -36,7 +36,11 @@
 
        <div class="container">
 	     <h1 class="display-1" align="center" style="color: white;"> Info & About </h1>
+<<<<<<< HEAD
        <h3 class="display-4" align="center" style="color: yellow;"> Informazioni su LightSide </h3>
+=======
+       <h3 class="display-4" align="center" style="color: yellow;"> Informazioni su LigthSide </h3>
+>>>>>>> ed975938e775c00b62e620ef758c8fe712c88f6e
        <p align="center" style="color: white;"> Tutte le informazioni d'uso di LightSide, sul suo autore, sul perché esiste</p>
        </div>
 </div>
@@ -45,7 +49,11 @@
 
 
 <div class="row">
+<<<<<<< HEAD
   <div class="col-md">
+=======
+  <div class="col-md-4">
+>>>>>>> ed975938e775c00b62e620ef758c8fe712c88f6e
     <div class="card border-dark mb-3" style="width: 35rem;">
     <h3 class="card-title" align="center">L'Autore</h3>
     <img class="card-img-top" src="imgs/autore.jpeg" alt="author"  >
@@ -65,7 +73,13 @@
   </div>
 
 
+<<<<<<< HEAD
     <div class="col-md">
+=======
+  <div class="col-md-4">
+
+    <div class="col-md-4">
+>>>>>>> ed975938e775c00b62e620ef758c8fe712c88f6e
       <div class="card border-dark mb-3" style="width: 35rem;">
       <h3 class="card-title" align="center">Il progetto LightSide</h3>
       <img class="card-img-top" src="imgs/logotest.png" alt="author">
@@ -96,8 +110,14 @@
       </div>
       </div>
     </div>
+<<<<<<< HEAD
 
   <div class="col-md">
+=======
+  </div>
+
+  <div class="col-md-4">
+>>>>>>> ed975938e775c00b62e620ef758c8fe712c88f6e
     <div class="card border-dark mb-3" style="width: 35rem;">
     <h3 class="card-title" align="center">Ringraziamenti ed extra info</h3>
     <img class="card-img-top" src="imgs/amici.jpeg" alt="author"  >
